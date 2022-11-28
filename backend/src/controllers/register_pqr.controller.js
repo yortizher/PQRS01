@@ -5,13 +5,14 @@ import { transporter } from '../helpers/configGmail.js'
 import { v4 } from 'uuid'
 import Pqrc from '../models/pqrCategory.model.js'
 import User from '../models/users.model.js'
+import axios from 'axios'
 
 
 async function getUser(user) {
   try {
     const response = await axios.get(`https://pqrs01-production.up.railway.app/api/v1/customer/${user}`);
     
-    const solve = response.data
+    const solve = await response.data
     const { email } = solve
     return email
 
