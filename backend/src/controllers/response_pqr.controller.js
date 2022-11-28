@@ -54,6 +54,7 @@ export const createResponse = async  (req,res) => {
        register_pqr_id, user_id, desc_solution
     })
 
+
     const searchByPqr_id = await Register.findAll({
         include: [{model:Customer}],
         where: {
@@ -64,6 +65,10 @@ export const createResponse = async  (req,res) => {
     const noveltyTraceability = await Traceability.create({
         register_pqr_id, date: date_register, novelty: 'Contestado'
     })
+
+    const editRegister = await Register.findByPk(register_pqr_id)
+    editRegister.status = "Contestado"
+    await editRegister.save()
 
     const info = await transporter.sendMail({
         from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
