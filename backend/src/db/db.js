@@ -3,9 +3,9 @@ import dotenv from 'dotenv/config'
 import { database, username, password, host, dialect, port} from '../helpers/helper.js'
 
 
-export const db = new Sequelize("railway", "root", "Jd59g9dr1tw2xgLcK0SN", {
-    host:'containers-us-west-91.railway.app',
+export const db = new Sequelize("railway", "root", "cHK8zFx6i3MwxmCthiMD", {
+    host:'containers-us-west-76.railway.app',
     dialect:"mysql",
-    port: 6528
+    port: 5776
   })
 
