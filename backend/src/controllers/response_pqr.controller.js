@@ -54,12 +54,12 @@ export const createResponse = async  (req,res) => {
        register_pqr_id, user_id, desc_solution
     })
 
-    const searchByPqr_id = await Register.findAll({
-        include: [{model:Customer}],
-        where: {
-            id: register_pqr_id
-        }
-    })
+    // const searchByPqr_id = await Register.findAll({
+    //     include: [{model:Customer}],
+    //     where: {
+    //         id: register_pqr_id
+    //     }
+    // })
 
     const noveltyTraceability = await Traceability.create({
         register_pqr_id, date: date_register, novelty: 'Contestado'
