@@ -4,6 +4,7 @@ import { Traceability } from '../models/traceability.model.js'
 import { transporter } from '../helpers/configGmail.js'
 import { v4 } from 'uuid'
 import Pqrc from '../models/pqrCategory.model.js'
+import User from '../models/users.model.js'
 
 
 async function getUser(user) {
@@ -21,7 +22,9 @@ async function getUser(user) {
 
 export const getRegisters = async (req,res) => {
     try{
-        const registerList = await Register.findAll({ include: { all: true }})
+        const registerList = await Register.findAll({ 
+          include: [{model:Customer}, {model:Pqrc}, {model:User}]
+        })
         res.json(registerList)
     }catch(err){
         console.log(err);
