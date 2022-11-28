@@ -54,21 +54,25 @@ export const createResponse = async  (req,res) => {
        register_pqr_id, user_id, desc_solution
     })
 
+    const searchByPqr_id = await Register.findAll({
+        include: [{model:Customer}],
+        where: {
+            id: register_pqr_id
+        }
+    })
+
     const noveltyTraceability = await Traceability.create({
         register_pqr_id, date: date_register, novelty: 'Contestado'
     })
 
     const info = await transporter.sendMail({
         from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
-        to: 'oscar.sierra@misena.edu.co',
+        to: 'envioshseq@gmail.com',
         subject: "PQR ha sido actualizada ✔", 
-        text: "", 
-        html: `
-        <b> PQR ha sido actualizado a: Contestado. Por favor verifica el nuevo estado del proceso.</b>
-        `
+        text: `PQR con N° radicado ha sido actualizado a: Contestado. Por favor, verifica las novedades.`, 
+        html: ""
       });
 
-    console.log(noveltyTraceability);
 
     res.status(200).json({message: "Register was created succesfully", createRegister})
 

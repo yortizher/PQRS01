@@ -5,6 +5,20 @@ import { transporter } from '../helpers/configGmail.js'
 import { v4 } from 'uuid'
 import Pqrc from '../models/pqrCategory.model.js'
 
+
+async function getUser(user) {
+  try {
+    const response = await axios.get(`https://pqrs01-production.up.railway.app/api/v1/customer/${user}`);
+    
+    const solve = response.data
+    const { email } = solve
+    return email
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export const getRegisters = async (req,res) => {
     try{
         const registerList = await Register.findAll({ include: { all: true }})
@@ -60,14 +74,12 @@ export const createRegister = async  (req,res) => {
     })
 
     const info = await transporter.sendMail({
-        from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
-        to: 'oscar.sierra@misena.edu.co',
-        subject: "PQR ha sido actualizada ✔", 
-        text: "", 
-        html: `
-        <b> El estado de la PQR ha cambiado a: En proceso.  Por favor verifica las novedades.</b>
-        `
-      });
+      from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
+      to: await getUser(client_id),
+      subject: "PQR ha sido actualizada ✔", 
+      text: `PQR con N° radicado ${uuid}, ha cambiado a: En proceso. Por favor, verifica las novedades.`, 
+      html: ""
+    });
 
 
     res.status(200).json({message: "Register was created succesfully", createRegister})
