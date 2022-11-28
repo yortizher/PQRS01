@@ -7,7 +7,7 @@ export const editRegister = async (req,res) => {
     try {
 
         const {  status } = req.body
-        if(status !== 'Finalizado') {
+        if(status !== "Finalizado") {
             return res.status(500).json({ message: "El status debe ser igual a 'Finalizado' "})
         }
         const today = new Date()
@@ -22,12 +22,10 @@ export const editRegister = async (req,res) => {
 
         const info = await transporter.sendMail({
           from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
-          to: 'oscar.sierra@misena.edu.co',
+          to: 'envioshseq@gmail.com',
           subject: "PQR ha sido actualizada ✔", 
-          text: "", 
-          html: `
-          <b> El estado de la PQR ha cambiado a: Finalizado.  Por favor verifica el nuevo estado del proceso. </b>
-          `
+          text: `PQR con N° radicado ha sido actualizado a: Contestado. Por favor, verifica las novedades.`, 
+          html: ""
         });
 
         const editRegister = await Register.findByPk(id)
