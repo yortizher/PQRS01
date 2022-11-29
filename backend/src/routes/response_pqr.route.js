@@ -1,4 +1,7 @@
 import { Router } from 'express'
+import multer  from 'multer'
+import bodyParser  from 'body-parser';
+const upload = multer()
 import {
     getResponses,
     responseById,
@@ -9,9 +12,10 @@ import {
 } from '../controllers/response_pqr.controller.js'
 
 export const responseRouter = Router()
+const jsonParser = bodyParser.json();
 
 responseRouter.get('/', getResponses)
 responseRouter.get('/:id', responseById)
-responseRouter.post('/', createResponse)
+responseRouter.post('/',upload.none(), createResponse)
 responseRouter.delete('/:id', deleteResponse)
-responseRouter.put('/:id', editResponse)
+responseRouter.put('/:id',upload.none(), editResponse)
