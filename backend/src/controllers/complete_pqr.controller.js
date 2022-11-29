@@ -36,7 +36,7 @@ export const editRegister = async (req,res) => {
           from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
           to: email,
           subject: "PQR ha sido actualizada ✔", 
-          text: `PQR con radicado N° ${id} ha sido actualizado a: Finalizado. Por favor, verifica las novedades.`
+          text: `PQR con radicado N° ${id}, ha sido actualizado a: Finalizado. Por favor, verifica las novedades.`
         });
 
         const editRegister = await Register.findByPk(id)
