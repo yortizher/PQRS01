@@ -23,7 +23,7 @@ export const Response = db.define('response',{
             type: STRING,
             allowNull: true
         }
-        })
+        },{timestamps: false})
 
 
         Response.belongsTo(Register, {foreignKey: 'register_pqr_id', sourceKey: 'id'});

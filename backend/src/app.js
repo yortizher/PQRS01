@@ -18,7 +18,7 @@ const app = express()
 app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyParser.json())
-app.use(express.urlencoded({  extended: true }))
+app.use(bodyParser.urlencoded({  extended: true }))
 
 app.use('/api/v1/complete-pqr', completeRouter)
 app.use('/api/v1/traceability', traceabilityRouter)

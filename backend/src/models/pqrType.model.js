@@ -14,7 +14,7 @@ const { STRING, INTEGER } = DataTypes
                 allowNull: false
             }
 
-        })
+        },{timestamps: false})
 
 export default Pqrt
             
