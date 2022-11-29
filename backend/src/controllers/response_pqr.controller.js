@@ -5,6 +5,7 @@ import { transporter } from '../helpers/configGmail.js'
 import Customer from '../models/customers.model.js'
 import User from '../models/users.model.js'
 
+
 export const getResponses = async (req,res) => {
     try{
         const list = await Response.findAll({ include: { all: true }})
@@ -55,31 +56,35 @@ export const createResponse = async  (req,res) => {
     })
 
 
-    // const searchByPqr_id = await Register.findAll({
-    //     include: [{model:Customer}],
-    //     where: {
-    //         id: register_pqr_id
-    //     }
-    // })
+    const searchByPqr_id = await Register.findAll({
+        include: [{model:Customer}],
+        where: {
+            id: register_pqr_id
+        }
+    })
+
+    const [{customer}] = searchByPqr_id
+    const {email} = customer
+
+    const editRegister = await Register.findByPk(register_pqr_id)
+      editRegister.status = "Contestado"
+      await editRegister.save()
 
     const noveltyTraceability = await Traceability.create({
         register_pqr_id, date: date_register, novelty: 'Contestado'
     })
 
-    const editRegister = await Register.findByPk(register_pqr_id)
-    editRegister.status = "Contestado"
-    await editRegister.save()
 
     const info = await transporter.sendMail({
         from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
-        to: 'envioshseq@gmail.com',
+        to: email,
         subject: "PQR ha sido actualizada ✔", 
-        text: `PQR con N° radicado ha sido actualizado a: Contestado. Por favor, verifica las novedades.`, 
-        html: ""
+        text: `PQR con radicado N° ${register_pqr_id}, ha sido actualizado a: Contestado. Por favor, verifica las novedades.`
       });
 
+      
 
-    res.status(200).json({message: "Register was created succesfully", createRegister})
+    res.status(200).json({message: "Register was created succesfully", createRegister, email})
 
     } catch (error) {
         console.error(error)
