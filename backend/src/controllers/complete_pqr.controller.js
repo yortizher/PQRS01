@@ -1,6 +1,8 @@
 import  { Register } from '../models/register_pqr.model.js'
 import { Traceability } from '../models/traceability.model.js'
 import { transporter } from '../helpers/configGmail.js'
+import Customer from '../models/customers.model.js'
+
 
 export const editRegister = async (req,res) => {
     const { id } = req.params
@@ -20,12 +22,21 @@ export const editRegister = async (req,res) => {
           register_pqr_id: id, date: date_register, novelty: 'Finalizado'
         })
 
+        const searchByPqr_id = await Register.findAll({
+          include: [{model:Customer}],
+          where: {
+              id
+          }
+        })
+
+        const [{customer}] = searchByPqr_id
+        const {email} = customer
+
         const info = await transporter.sendMail({
           from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
-          to: 'envioshseq@gmail.com',
+          to: email,
           subject: "PQR ha sido actualizada ✔", 
-          text: `PQR con N° radicado ha sido actualizado a: Contestado. Por favor, verifica las novedades.`, 
-          html: ""
+          text: `PQR con radicado N° ${id} ha sido actualizado a: Finalizado. Por favor, verifica las novedades.`
         });
 
         const editRegister = await Register.findByPk(id)

@@ -81,8 +81,7 @@ export const createRegister = async  (req,res) => {
       from: '"Market Mix Team." <jorgetarifa33@gmail.com>', 
       to: await getUser(client_id),
       subject: "PQR ha sido actualizada ✔", 
-      text: `PQR con N° radicado ${uuid}, ha cambiado a: En proceso. Por favor, verifica las novedades.`, 
-      html: ""
+      text: `PQR con radicado N° ${uuid}, ha cambiado a: En proceso. Por favor, verifica las novedades.`
     });
 
 
