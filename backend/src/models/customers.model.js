@@ -50,6 +50,6 @@ const { STRING, INTEGER, DATEONLY} = DataTypes
 
 
 
-        })
+        },{timestamps: false})
   
     export default Customer
