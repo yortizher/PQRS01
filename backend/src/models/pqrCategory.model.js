@@ -18,7 +18,7 @@ const { STRING, INTEGER } = DataTypes
                 allowNull: true
             },
 
-        })
+        },{timestamps: false})
         Pqrc.belongsTo(Pqrt, {foreignKey: 'type_pqr_id', sourceKey: 'id'});
         Pqrt.hasMany(Pqrc, {foreignKey: 'type_pqr_id', targetId: 'id'});
 export default Pqrc

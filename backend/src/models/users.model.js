@@ -28,6 +28,6 @@ const { STRING, INTEGER } = DataTypes
 
 
 
-        })
+        },{timestamps: false})
   
     export default User

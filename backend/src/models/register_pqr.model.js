@@ -8,7 +8,7 @@ const { STRING, INTEGER } = DataTypes
 
 export const Register = db.define('register',{ 
         id: {
-            type: STRING,
+            type: STRING(50),
             primaryKey: true
             
         },
@@ -37,7 +37,7 @@ export const Register = db.define('register',{
             allowNull: true,
             defaultValue: 'En proceso'
         }
-        })
+        },{timestamps: false})
 
 
      Register.belongsTo(Pqrc, {foreignKey: 'pqr_category_id', sourceKey: 'id'});

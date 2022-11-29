@@ -22,7 +22,7 @@ export const Traceability = db.define('traceability',{
             type: STRING,
             allowNull: true
         }
-        })
+        },{timestamps: false})
 
 
         Traceability.belongsTo(Register, {foreignKey: 'register_pqr_id', sourceKey: 'id'});
